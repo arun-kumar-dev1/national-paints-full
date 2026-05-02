@@ -80,14 +80,19 @@ const { errorHandler, notFound } = require("./middlewares/errorHandler");
 const app = express();
 
 app.use(cors({
-  origin: true,
+    origin: [
+    "http://localhost:3000",
+    "https://national-paints-full-1.onrender.com"
+  ],
   credentials: true
 }));
 
 const corsOptions = {
   origin: [
-    "https://nationalpaints.co.in",
     "http://localhost:3000",
+    "https://national-paints-full-1.onrender.com",
+    "https://national-paints-full.onrender.com",
+    "https://nationalpaints.co.in",
     "https://national-paints.vercel.app"
   ],
   credentials: true,

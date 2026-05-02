@@ -28,11 +28,31 @@ const LoginForm = () => {
       const resultAction = await dispatch(Login({ email, password }));
 
       // Check if the login was successful
-      if (Login.fulfilled.match(resultAction)) {
-        // Redirect to admin dashboard after successful login
-        history.push('/admin/dashboard');
-        window.location.reload(); // Reloading the page is optional
-      } else {
+      // if (Login.fulfilled.match(resultAction)) {
+      //   // Redirect to admin dashboard after successful login
+      //   history.push('/admin/dashboard');
+      //   window.location.reload(); // Reloading the page is optional
+
+if (Login.fulfilled.match(resultAction)) {
+  const data = resultAction.payload;
+
+  // role ke hisaab se save karo
+  if (data.role === "admin") {
+    localStorage.setItem("adminToken", data.token);
+  } else if (data.role === "reception") {
+    localStorage.setItem("receptionistToken", data.token);
+  } else if (data.role === "hr") {
+    localStorage.setItem("hrToken", data.token);
+  } else if (data.role === "accountant") {
+    localStorage.setItem("accountantToken", data.token);
+  }
+
+  history.push('/admin/dashboard');
+}
+
+
+
+       else {
         // If login failed, show an error message
         toast({
           title: "Login failed.",
